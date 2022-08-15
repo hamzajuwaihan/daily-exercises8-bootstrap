@@ -17,3 +17,10 @@
 #carouselExampleSlidesOnly {
     width: 100%;
 }
+
+.star {
+    color: red;
+}
+small{
+    font-weight: bold;
+}
