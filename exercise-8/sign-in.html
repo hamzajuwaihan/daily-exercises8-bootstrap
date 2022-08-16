@@ -85,7 +85,7 @@
           <hr />
           <div class="row">
             <div class="container w-50">
-              <h1 class="h1">Create an account</h1>
+              <h1 class="h1" >Sign in</h1>
               <form action="#" class="mt-5" id="sign-up">
                 <div>
                   <label for="email" class="form-label"
@@ -100,10 +100,9 @@
                 >
                 <div class="input-group col-12">
                   <input
-                    type="text"
+                    type="password"
                     class="form-control"
-                    placeholder="Recipient's username"
-                    aria-label="Recipient's username"
+
                     aria-describedby="button-addon2"
                     id="pass"
                   />
@@ -147,6 +146,7 @@
                     Recieve Coding Academy Newsletter
                   </label>
                 </div>
+                <div id="message"></div>
                 <div class="d-grid gap-2">
                   <input
                     class="btn btn-primary sign-up btn-lg"
@@ -167,7 +167,7 @@
     <script>
       const form = document.getElementById("sign-up");
       const emailField = document.getElementById("email");
-      const phoneField = document.getElementById("phone");
+
       const passField = document.getElementById("pass");
       form.addEventListener("submit", (e) => {
         if (emailField.value == null || emailField.value == "") {
@@ -184,17 +184,7 @@
         } else {
           document.getElementById("email-error").textContent = "";
         }
-        if (phoneField.value == "" || phoneField.value == null) {
-          document.getElementById("tel-error").textContent =
-            "The Mobile field is required.";
-          e.preventDefault();
-        } else if (phoneField.value.length < 10) {
-          document.getElementById("tel-error").textContent =
-            "The mobile must be 10 characters.";
-          e.preventDefault();
-        } else {
-          document.getElementById("tel-error").textContent = "";
-        }
+
 
         if (passField.value == "" || passField.value == null) {
           document.getElementById("pass-error").textContent =
@@ -211,6 +201,31 @@
         } else {
           document.getElementById("pass-error").textContent = "";
         }
+        let found = false;
+        let userIndex = null;
+        let formData = JSON.parse(localStorage.getItem('formData')) || [];
+        formData.forEach((element,arrayIndex) => {
+          if(element.email==emailField.value){
+            found = true;
+            userIndex = arrayIndex;
+          }
+        });
+       
+        if (found && formData[userIndex].password==passField.value) {
+          document.getElementById("message").innerHTML= "logged in successfuly ";
+          sessionStorage.email =localStorage.email;
+          sessionStorage.pass =localStorage.pass;
+          e.preventDefault()
+        }else if(found && formData[userIndex].password !==passField.value){
+          document.getElementById("message").innerHTML= "Wrong password";
+          e.preventDefault();
+        }else if(!found){
+          document.getElementById("message").innerHTML= "account not found";
+          e.preventDefault();
+        }else{
+          document.getElementById("message").innerHTML= "";
+        }
+        e.preventDefault();
       });
     </script>
   </body>
