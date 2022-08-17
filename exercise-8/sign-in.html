@@ -213,8 +213,8 @@
        
         if (found && formData[userIndex].password==passField.value) {
           document.getElementById("message").innerHTML= "logged in successfuly ";
-          sessionStorage.email =localStorage.email;
-          sessionStorage.pass =localStorage.pass;
+          sessionStorage.email =formData[userIndex].email;
+          sessionStorage.pass =formData[userIndex].password;
           e.preventDefault()
         }else if(found && formData[userIndex].password !==passField.value){
           document.getElementById("message").innerHTML= "Wrong password";
